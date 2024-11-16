@@ -12,10 +12,19 @@ services:
     volumes:
       - akaunting-data:/var/www/html
     restart: unless-stopped
-    env_file:
-      - env/run.env
     environment:
-      - AKAUNTING_SETUP
+      APP_URL: ${APP_URL}
+      LOCALE: ${LOCALE}
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_NAME: ${DB_NAME}
+      DB_USERNAME: ${DB_USERNAME}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_PREFIX: ${DB_PREFIX}
+      COMPANY_NAME: ${COMPANY_NAME}
+      COMPANY_EMAIL: ${COMPANY_EMAIL}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
     depends_on:
       - akaunting-db
 
@@ -25,8 +34,13 @@ services:
     volumes:
       - akaunting-db:/var/lib/mysql
     restart: unless-stopped
-    env_file:
-      - env/db.env
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_RANDOM_ROOT_PASSWORD: ${MYSQL_RANDOM_ROOT_PASSWORD}
 
 volumes:
   akaunting-data:
