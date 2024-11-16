@@ -9,6 +9,7 @@ services:
       context: .
     ports:
       - 80:80
+      - 443:443
     volumes:
       - akaunting-data:/var/www/html
     restart: unless-stopped
